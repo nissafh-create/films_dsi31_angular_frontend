@@ -1,0 +1,16 @@
+<form>
+  <div [hidden]="isAdding">
+    <label>Genre ID</label>
+    <input type="text" [(ngModel)]="genre.genreID" name="genreID" class="form-control w-25" readonly>
+  </div>
+  <div>
+    <label>Genre Name</label>
+    <input type="text" [(ngModel)]="genre.genreName" name="genreName" class="form-control"
+      placeholder="Enter genre name...">
+  </div>
+  <div class="mt-2">
+    <button type="submit" [disabled]="!genre.genreName" class="btn btn-success"
+      (click)="saveGenre()">{{ isAdding ? 'Add' : 'Update' }}</button>
+  </div>
+</form>
+

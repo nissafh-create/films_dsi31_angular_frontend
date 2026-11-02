@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <app-update-genre
+          [genre]="updatedGenre"
+          (genreUpdated)="genreUpdated($event)"
+          [isAdding]="isAdding">
+        </app-update-genre>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Genre Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (genre of genres; track genre.genreID) {
+            <tr>
+              <td>{{ genre.genreID }}</td>
+              <td>{{ genre.genreName }}</td>
+              <td>
+                <a class="btn btn-success" (click)="updateGenre(genre)">Edit</a>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3">No genres found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        @if (films.length > 0) {
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Release Date</th>
+            <th>Duration (minutes)</th>
+            <th>Genre</th>
+            @if (authService.isAdmin()) {
+              <th>Actions</th>
+            }
+          </tr>
+        </thead>
+        }
+        <tbody>
+          @for (film of films; track film.filmID; let index = $index; let nbr = $count;
+          let first = $first; let last = $last) {
+          @if(first){
+          <p>Number of films: {{nbr}}</p>
+          }
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ film.filmID }}</td>
+            <td>{{ film.filmTitle }}</td>
+            <td>{{ film.filmDescription }}</td>
+            <td>{{ film.filmReleaseDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ film.filmDuration }}</td>
+            <td>{{ film.genre?.genreName }}</td>
+            @if (authService.isAdmin()) {
+              <td>
+                <a class="btn btn-danger me-2" (click)="deleteFilm(film)">Delete</a>
+                <a class="btn btn-success" [routerLink]="['/update-film', film.filmID]">Edit</a>
+              </td>
+            }
+          </tr>
+          }
+          @empty {
+          <tr>
+            <td colspan="7">No films found</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

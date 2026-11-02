@@ -1,0 +1,42 @@
+<div class="container">
+  <form class="form-inline mb-4">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label class="me-2">Search Film by title :</label>
+      <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control" placeholder="Type a title...">
+    </div>
+  </form>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Release Date</th>
+            <th>Duration (minutes)</th>
+            <th>Genre</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (film of films | searchFilter: searchTerm; track film.filmID) {
+            <tr>
+              <td>{{ film.filmID }}</td>
+              <td>{{ film.filmTitle }}</td>
+              <td>{{ film.filmDescription }}</td>
+              <td>{{ film.filmReleaseDate | date:'dd/MM/yyyy' }}</td>
+              <td>{{ film.filmDuration }}</td>
+              <td>{{ film.genre?.genreName || 'NO GENRE' }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">No films found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

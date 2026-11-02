@@ -1,0 +1,49 @@
+<div class="container">
+  <div>
+    <h2>Add Film :</h2>
+  </div>
+  <form>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Film ID</label>
+      <input type="text" [(ngModel)]="newFilm.filmID" name="filmID" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Title</label>
+      <input type="text" [(ngModel)]="newFilm.filmTitle" name="filmTitle" class="form-control">
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <label>Description</label>
+      <input type="text" [(ngModel)]="newFilm.filmDescription" name="filmDescription" class="form-control">
+    </div>
+
+    <div class="col-sm-2 col-md-2 col-lg-2">
+      <label>Duration (minutes)</label>
+      <input type="number" [(ngModel)]="newFilm.filmDuration" name="filmDuration" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Release Date</label>
+      <input type="date" [(ngModel)]="newFilm.filmReleaseDate" name="filmReleaseDate" class="form-control">
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Genre</label>
+      <select class="form-control form-control-lg" id="genreID" name="genreID" [(ngModel)]="newGenreId">
+        @for (genre of genres; track genre.genreID) {
+          <option [value]="genre.genreID">{{ genre.genreName }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" (click)="addFilm()" class="btn btn-success">Add</button>
+    </div>
+  </form>
+  @if(message){
+  <div class="alert alert-success mt-3">
+    <strong>Success!</strong> {{message}}
+  </div>
+  }
+</div>

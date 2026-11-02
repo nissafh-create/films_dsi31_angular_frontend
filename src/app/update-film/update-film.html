@@ -1,0 +1,52 @@
+<div class="container">
+    <div>
+        <h2>Update Film:</h2>
+    </div>
+    @if (currentFilm) {
+    <form>
+        <div hidden class="col-sm-2 col-md-2 col-lg-2">
+            <label>Film ID</label>
+            <input type="text" [(ngModel)]="currentFilm.filmID" name="filmID" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Title</label>
+            <input type="text" [(ngModel)]="currentFilm.filmTitle" name="filmTitle" class="form-control">
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label>Description</label>
+            <input type="text" [(ngModel)]="currentFilm.filmDescription" name="filmDescription" class="form-control">
+        </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label>Duration (minutes)</label>
+            <input type="number" [(ngModel)]="currentFilm.filmDuration" name="filmDuration" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Release Date</label>
+            <input type="date" [ngModel]="currentFilm.filmReleaseDate | date: 'yyyy-MM-dd'"
+                (ngModelChange)="currentFilm.filmReleaseDate = $event" name="filmReleaseDate" class="form-control">
+        </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Genre</label>
+            <select class="form-control form-control-lg" id="genreID" name="genreID" [(ngModel)]="updatedGenreId">
+                @for (genre of genres; track genre.genreID) {
+                    <option [value]="genre.genreID">{{ genre.genreName }}</option>
+                }
+            </select>
+        </div>
+
+        <div class="mt-2">
+            <button type="submit" (click)="updateFilm()" class="btn btn-success">Update</button>
+        </div>
+    </form>
+    } @else {
+    <div class="alert alert-danger">
+        <strong>Error!</strong> Film not found.
+        <a routerLink="/films" class="btn btn-primary">Back to films</a>
+    </div>
+    }
+</div>

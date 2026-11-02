@@ -1,0 +1,12 @@
+<h1>string interpolation</h1>
+<h3>{{ title }}</h3>
+
+<h1>property binding</h1>
+<button [disabled]="status">click here</button>
+
+<h1>event binding</h1>
+<button (click)="changeTitle()">change the title</button>
+
+<h1>two ways binding</h1>
+<input type="text" [(ngModel)] = "name">
+<h3>Good morning {{ name }}</h3>
