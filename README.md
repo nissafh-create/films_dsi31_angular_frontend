@@ -1,4 +1,13 @@
-# Films Management Frontend
+Backend repository: https://github.com/nissafh-create/films_dsi31
+
+## Run
+1. Start the backend first (http://localhost:8080)
+2. Then:
+   npm install
+   ng serve
+3. Open http://localhost:4200
+
+# Films Management Frontend(Angular)
 
 A modern Angular frontend application for managing films and genres, communicating with a Spring Boot REST API.
 
