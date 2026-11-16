@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FilmService } from '../services/film';
 import { Film } from '../models/film.model';
@@ -13,17 +13,19 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './update-film.html',
 })
 export class UpdateFilm implements OnInit {
-  currentFilm!: Film;
+  currentFilm: Film = {} as Film;
   genres: Genre[] = [];
   updatedGenreId!: number;
 
   filmService = inject(FilmService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.filmService.listGenres().subscribe(wrappedGenres => {
       this.genres = wrappedGenres._embedded.genres;
+      this.cdr.markForCheck();
     });
 
     const id = +this.route.snapshot.params['id'];
@@ -32,6 +34,7 @@ export class UpdateFilm implements OnInit {
       if (this.currentFilm && this.currentFilm.genre) {
         this.updatedGenreId = this.currentFilm.genre.genreID;
       }
+      this.cdr.markForCheck();
     });
   }
 

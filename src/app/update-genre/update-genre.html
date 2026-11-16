@@ -9,7 +9,12 @@
       placeholder="Enter genre name...">
   </div>
   <div class="mt-2">
-    <button type="submit" [disabled]="!genre.genreName" class="btn btn-success"
+    <label>Genre Description</label>
+    <textarea [(ngModel)]="genre.genreDescription" name="genreDescription" class="form-control" rows="2"
+      placeholder="Enter genre description..."></textarea>
+  </div>
+  <div class="mt-2">
+    <button type="button" [disabled]="!genre.genreName" class="btn btn-success"
       (click)="saveGenre()">{{ isAdding ? 'Add' : 'Update' }}</button>
   </div>
 </form>

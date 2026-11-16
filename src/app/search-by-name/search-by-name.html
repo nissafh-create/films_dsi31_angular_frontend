@@ -1,10 +1,31 @@
 <div class="container">
+  <!-- Active Approach: onKeyUp method (Step 18 in prof's PDF) -->
+  <form class="form-inline mb-4">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label class="me-2">Search Film by title as you type :</label>
+      <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)" placeholder="Type a title...">
+    </div>
+  </form>
+
+  <!--
+  API-based search button
+  <form class="form-inline mb-4">
+    <div class="form-group mx-sm-3 mb-2 mt-2">
+      <label class="me-2">Search Film by title :</label>
+      <input type="text" class="form-control me-2" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Type a title...">
+      <button type="submit" (click)="searchFilms()" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  Pipe-based search
   <form class="form-inline mb-4">
     <div class="form-group mx-sm-3 mb-2 mt-2">
       <label class="me-2">Search Film by title :</label>
       <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control" placeholder="Type a title...">
     </div>
   </form>
+  @for (film of films | searchFilter: searchTerm; track film.filmID) { ... }
+  -->
 
   <div class="card shadow mb-4">
     <div class="card-body">
@@ -20,23 +41,23 @@
           </tr>
         </thead>
         <tbody>
-          @for (film of films | searchFilter: searchTerm; track film.filmID) {
-            <tr>
-              <td>{{ film.filmID }}</td>
-              <td>{{ film.filmTitle }}</td>
-              <td>{{ film.filmDescription }}</td>
-              <td>{{ film.filmReleaseDate | date:'dd/MM/yyyy' }}</td>
-              <td>{{ film.filmDuration }}</td>
-              <td>{{ film.genre?.genreName || 'NO GENRE' }}</td>
-            </tr>
+          <!-- Iterating directly over filtered films array by onKeyUp -->
+          @for (film of films; track film.filmID) {
+          <tr>
+            <td>{{ film.filmID }}</td>
+            <td>{{ film.filmTitle }}</td>
+            <td>{{ film.filmDescription }}</td>
+            <td>{{ film.filmReleaseDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ film.filmDuration }}</td>
+            <td>{{ film.genre?.genreName || 'NO GENRE' }}</td>
+          </tr>
           } @empty {
-            <tr>
-              <td colspan="6">No films found</td>
-            </tr>
+          <tr>
+            <td colspan="6">No films found</td>
+          </tr>
           }
         </tbody>
       </table>
     </div>
   </div>
 </div>
-

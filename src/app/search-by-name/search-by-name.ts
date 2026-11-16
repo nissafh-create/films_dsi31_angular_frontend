@@ -3,10 +3,9 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Film } from '../models/film.model';
 import { FilmService } from '../services/film';
-import { SearchFilterPipe } from '../search-filter.pipe';
 
 @Component({
-  imports: [CommonModule, FormsModule, SearchFilterPipe],
+  imports: [CommonModule, FormsModule],
   selector: 'app-search-by-name',
   styles: ``,
   templateUrl: './search-by-name.html',
@@ -30,7 +29,15 @@ export class SearchByName implements OnInit {
     });
   }
 
-  // API-based search (Step 16 / Improvement)
+  //onKeyUp method
+  onKeyUp(filterText: string): void {
+    this.films = this.allFilms.filter(item =>
+      item.filmTitle.toLowerCase().includes(filterText.toLowerCase())
+    );
+  }
+
+  /*
+  // API-based search with button
   searchFilms(): void {
     if (this.searchTerm) {
       this.filmService.searchByTitle(this.searchTerm).subscribe({
@@ -48,11 +55,5 @@ export class SearchByName implements OnInit {
       });
     }
   }
-
-  // KeyUp-based local search (Step 19)
-  onKeyUp(filterText: string): void {
-    this.films = this.allFilms.filter(item =>
-      item.filmTitle.toLowerCase().includes(filterText.toLowerCase())
-    );
-  }
+  */
 }

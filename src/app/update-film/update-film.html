@@ -2,7 +2,6 @@
     <div>
         <h2>Update Film:</h2>
     </div>
-    @if (currentFilm) {
     <form>
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label>Film ID</label>
@@ -34,19 +33,13 @@
             <label>Genre</label>
             <select class="form-control form-control-lg" id="genreID" name="genreID" [(ngModel)]="updatedGenreId">
                 @for (genre of genres; track genre.genreID) {
-                    <option [value]="genre.genreID">{{ genre.genreName }}</option>
+                <option [value]="genre.genreID">{{ genre.genreName }}</option>
                 }
             </select>
         </div>
 
         <div class="mt-2">
-            <button type="submit" (click)="updateFilm()" class="btn btn-success">Update</button>
+            <button type="button" (click)="updateFilm()" class="btn btn-success">Update</button>
         </div>
     </form>
-    } @else {
-    <div class="alert alert-danger">
-        <strong>Error!</strong> Film not found.
-        <a routerLink="/films" class="btn btn-primary">Back to films</a>
-    </div>
-    }
 </div>

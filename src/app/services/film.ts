@@ -5,12 +5,6 @@ import { GenreWrapper } from '../models/genre-wrapper.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-// observable : we dont get the data now but we will get it later.
-// we use this when we have more than one value.
-// Promise : we get the data once.
-// subscribe : is a function that allows us to get the data from the observable.
-// httpOptions : is a function that allows us to set the headers of the request.
-
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -23,26 +17,25 @@ export class FilmService {
     private http = inject(HttpClient);
 
     getFilms(): Observable<Film[]> {
-        return this.http.get<Film[]>(this.apiURL);
+        return this.http.get<Film[]>(this.apiURL + "/all");
     }
 
     addFilm(film: Film): Observable<Film> {
-        return this.http.post<Film>(this.apiURL, film, httpOptions);
+        return this.http.post<Film>(this.apiURL + "/addfilm", film, httpOptions);
     }
 
     deleteFilm(id: number): Observable<void> {
-        const url = `${this.apiURL}/${id}`;
+        const url = `${this.apiURL}/delfilm/${id}`;
         return this.http.delete<void>(url, httpOptions);
     }
 
     getFilmById(id: number): Observable<Film> {
-        const url = `${this.apiURL}/${id}`;
+        const url = `${this.apiURL}/getbyid/${id}`;
         return this.http.get<Film>(url);
     }
 
     updateFilm(film: Film): Observable<Film> {
-        const url = `${this.apiURL}/${film.filmID}`;
-        return this.http.put<Film>(url, film, httpOptions);
+        return this.http.put<Film>(this.apiURL + "/updatefilm", film, httpOptions);
     }
 
     listGenres(): Observable<GenreWrapper> {
@@ -61,5 +54,10 @@ export class FilmService {
 
     addGenre(genre: Genre): Observable<Genre> {
         return this.http.post<Genre>(this.apiURLGenre, genre, httpOptions);
+    }
+
+    updateGenre(genre: Genre): Observable<Genre> {
+        const url = `${this.apiURLGenre}/${genre.genreID}`;
+        return this.http.put<Genre>(url, genre, httpOptions);
     }
 }

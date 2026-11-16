@@ -5,7 +5,7 @@
   <form>
     <div class="col-sm-2 col-md-2 col-lg-2">
       <label>Film ID</label>
-      <input type="text" [(ngModel)]="newFilm.filmID" name="filmID" class="form-control">
+      <input readonly type="text" [(ngModel)]="newFilm.filmID" name="filmID" class="form-control">
     </div>
 
     <div class="col-sm-4 col-md-4 col-lg-4">
@@ -32,13 +32,13 @@
       <label>Genre</label>
       <select class="form-control form-control-lg" id="genreID" name="genreID" [(ngModel)]="newGenreId">
         @for (genre of genres; track genre.genreID) {
-          <option [value]="genre.genreID">{{ genre.genreName }}</option>
+        <option [value]="genre.genreID">{{ genre.genreName }}</option>
         }
       </select>
     </div>
 
     <div class="mt-2">
-      <button type="submit" (click)="addFilm()" class="btn btn-success">Add</button>
+      <button type="button" (click)="addFilm()" class="btn btn-success">Add</button>
     </div>
   </form>
   @if(message){

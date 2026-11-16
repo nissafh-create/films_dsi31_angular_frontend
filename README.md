@@ -1,15 +1,11 @@
-Backend repository: https://github.com/nissafh-create/films_dsi31
+# Films Management Frontend (Angular)
 
-## Run
-1. Start the backend first (http://localhost:8080)
-2. Then:
-   npm install
-   ng serve
-3. Open http://localhost:4200
+A modern Angular frontend application for managing films and genres, communicating with a Spring Boot REST API and a dedicated Users & Authentication Microservice.
 
-# Films Management Frontend(Angular)
+- **Films Backend Repository:** https://github.com/nissafh-create/films_dsi31
+- **Users Microservice (Auth & JWT) Repository:** https://github.com/nissafh-create/films_dsi31-users-microservice
 
-A modern Angular frontend application for managing films and genres, communicating with a Spring Boot REST API.
+---
 
 ## Features
 
@@ -18,26 +14,33 @@ A modern Angular frontend application for managing films and genres, communicati
 - **Search & Filtering:**
   - Dynamic filter by genre (using Spring Data REST).
   - Search by film title using a custom pipe (`SearchFilterPipe`).
-- **Authentication & Role-Based Access:**
-  - Mock authentication service (`ADMIN` and `USER` roles).
-  - Route guards (`filmGuard`) to protect administrative routes.
+- **Authentication & Security:**
+  - JWT Authentication via Users Microservice (`http://localhost:8081/users`).
+  - User registration and email verification code flow.
+  - HTTP Interceptor (`tokenInterceptor`) to automatically attach JWT bearer token to outgoing requests.
+  - Route guards (`filmGuard`) to protect administrative routes based on decoded JWT roles (`ADMIN`).
   - Contextual navbar and action controls based on login status and role.
-  - Session persistence with `localStorage`.
+
+---
 
 ## Tech Stack
 
-- **Framework:** Angular 19+ (Standalone components, Zoneless change detection support)
-- **UI:** Bootstrap 5
-- **Communication:** Angular HttpClient (RxJS Observables) consuming Spring Boot REST & Spring Data REST APIs
+- **Framework:** Angular 19+ (Standalone components)
+- **Security:** `@auth0/angular-jwt` for token decoding and expiration handling
+- **Notifications:** `ngx-toastr` & `ngx-toastr/animations`
+- **UI:** Bootstrap 5 & Bootstrap Icons
+- **Communication:** Angular HttpClient (RxJS Observables) consuming Spring Boot REST APIs
 - **Routing:** Angular Router with functional Route Guards
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18+ recommended)
-- Angular CLI
-- Backend service running on `http://localhost:8080/films` (Spring Boot)
+- Node.js (v18+ recommended) & Angular CLI
+- **Users Microservice** running on `http://localhost:8081/users`
+- **Films Backend** running on `http://localhost:8080/films`
 
 ### Installation
 
@@ -55,14 +58,9 @@ ng serve
 
 Navigate to `http://localhost:4200/`.
 
-### Test Accounts
+---
 
-| Username | Password | Role |
-| :--- | :--- | :--- |
-| `admin` | `123` | ADMIN (Full CRUD, manage genres) |
-| `nadhem` | `123` | USER (Read-only access, search) |
-
-### Build
+## Build
 
 ```bash
 ng build

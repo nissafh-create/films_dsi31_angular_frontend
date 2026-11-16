@@ -8,6 +8,8 @@ import { ListGenres } from './list-genres/list-genres';
 import { Login } from './login/login';
 import { Forbidden } from './forbidden/forbidden';
 import { filmGuard } from './guards/film.guard';
+import { RegisterComponent } from './register/register';
+import { VerifEmailComponent } from './verif-email/verif-email';
 
 export const routes: Routes = [
     { path: "films", component: Films },
@@ -17,6 +19,8 @@ export const routes: Routes = [
     { path: "search-by-name", component: SearchByName },
     { path: "list-genres", component: ListGenres },
     { path: "login", component: Login },
+    { path: "register", component: RegisterComponent },
+    { path: "verifEmail", component: VerifEmailComponent },
     { path: "app-forbidden", component: Forbidden },
     { path: "", redirectTo: "films", pathMatch: "full" }
 ];

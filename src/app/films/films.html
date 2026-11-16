@@ -13,7 +13,7 @@
             <th>Duration (minutes)</th>
             <th>Genre</th>
             @if (authService.isAdmin()) {
-              <th>Actions</th>
+            <th>Actions</th>
             }
           </tr>
         </thead>
@@ -22,7 +22,7 @@
           @for (film of films; track film.filmID; let index = $index; let nbr = $count;
           let first = $first; let last = $last) {
           @if(first){
-          <p>Number of films: {{nbr}}</p>
+          <p>Total: {{nbr}}</p>
           }
           <tr>
             <td>{{ index + 1 }}</td>
@@ -33,10 +33,10 @@
             <td>{{ film.filmDuration }}</td>
             <td>{{ film.genre?.genreName }}</td>
             @if (authService.isAdmin()) {
-              <td>
-                <a class="btn btn-danger me-2" (click)="deleteFilm(film)">Delete</a>
-                <a class="btn btn-success" [routerLink]="['/update-film', film.filmID]">Edit</a>
-              </td>
+            <td>
+              <a class="btn btn-danger me-2" (click)="deleteFilm(film)">Delete</a>
+              <a class="btn btn-success" [routerLink]="['/update-film', film.filmID]">Edit</a>
+            </td>
             }
           </tr>
           }

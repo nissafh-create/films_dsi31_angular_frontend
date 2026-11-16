@@ -13,7 +13,7 @@ import { UpdateGenre } from '../update-genre/update-genre';
 export class ListGenres implements OnInit {
 
   genres: Genre[] = [];
-  updatedGenre: Genre = { genreID: 0, genreName: '' };
+  updatedGenre: Genre = { genreID: 0, genreName: '', genreDescription: '' };
   isAdding: boolean = true;
 
   private filmService = inject(FilmService);
@@ -32,15 +32,27 @@ export class ListGenres implements OnInit {
 
   genreUpdated(genre: Genre): void {
     console.log('Genre updated event:', genre);
-    this.filmService.addGenre(genre).subscribe(() => {
-      this.loadGenres();
-      this.updatedGenre = { genreID: 0, genreName: '' };
-      this.isAdding = true;
-    });
+    if (this.isAdding) {
+      const newGenre: Genre = {
+        genreName: genre.genreName,
+        genreDescription: genre.genreDescription || ''
+      } as Genre;
+      this.filmService.addGenre(newGenre).subscribe(() => {
+        this.loadGenres();
+        this.updatedGenre = { genreID: 0, genreName: '', genreDescription: '' };
+        this.isAdding = true;
+      });
+    } else {
+      this.filmService.updateGenre(genre).subscribe(() => {
+        this.loadGenres();
+        this.updatedGenre = { genreID: 0, genreName: '', genreDescription: '' };
+        this.isAdding = true;
+      });
+    }
   }
 
   updateGenre(genre: Genre): void {
-    this.updatedGenre = genre;
+    this.updatedGenre = { ...genre };
     this.isAdding = false;
   }
 
